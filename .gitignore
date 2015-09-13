@@ -10,3 +10,4 @@ doc/
 .DS_Store
 log/*
 Gemfile.lock
+tmp/data/meta_request/5dda5652-7b56-42f0-a7e3-411911e0a527.json

@@ -1,2 +1,4 @@
-.row
-  Hello fucker
+- @instagram_images.each do |image|
+  .row
+    .col-md-6.col-md-offset-3
+      = image_tag(image["images"]["standard_resolution"]["url"])

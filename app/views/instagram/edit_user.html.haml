@@ -1,0 +1,11 @@
+.row
+  .col-md-6.col-md-offset-3
+    %h1.text-center Edit Instagram User
+    Type the user name in the box and click the button. I will show the list of possible users and you will select the user you want to show images for.
+    %br
+    %br
+    = form_tag("#{instagram_search_user_path}", html: {class: "form"}) do
+      .form-group
+        %input{:name => "user_name", :type => "text", class: 'form-control'}
+      .form-group
+        %input{:type => "submit", :value => "Find Instagram User", class: 'btn btn-blue'}

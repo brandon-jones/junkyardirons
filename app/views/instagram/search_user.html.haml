@@ -1,0 +1,22 @@
+.row
+  .col-md-8.col-md-offset-2
+    %h1.text-center Search Instagram Users
+    Searching for users like 
+    = params["user_name"]
+    - @results.each do |result|
+      .row
+        = form_tag("#{instagram_update_user_path}", html: {class: "form"}) do
+          %input{:name => "user_name", :type => "hidden", :value => params["user_name"]}
+          %input{:name => "user_id", :type => "hidden", :value => result["id"]}
+          .col-md-3
+            = image_tag(result["profile_picture"], class: 'img-circle')
+          .col-md-3
+            = result["username"]
+          .col-md-3
+            - if result["full_name"].length > 0
+              = result["full_name"]
+            - else
+              &nbsp;
+          .col-md-3
+          %input{:type => "submit", :value => "Select user", class: 'btn btn-blue'}
+      %br

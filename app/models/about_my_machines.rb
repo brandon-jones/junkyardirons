@@ -1,4 +1,4 @@
-class AboutMe
+class AboutMyMachines
 
   attr_accessor :description
 
@@ -20,7 +20,7 @@ class AboutMe
   private
 
   def file_path
-    return "config/about_me.txt" if Rails.env == 'development'
-    return ENV["APP_PATH"] + "/shared/config/about_me.txt"
+    return "config/about_my_machines.txt" if Rails.env == 'development'
+    return ENV["APP_PATH"] + "/shared/config/about_my_machines.txt"
   end
 end

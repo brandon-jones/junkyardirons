@@ -1,0 +1,9 @@
+= form_tag("#{about_my_machines_update_path}", html: {class: "form"}) do
+  .form-group
+    .row
+      .col-sm-12
+        = cktext_area :about_my_machines, :description, :ckeditor => {:uiColor => '#E2D07A'}
+  .form-group
+    .row
+      .col-sm-4
+        %input{:type => "submit", :value => "Update About My Machines", class: 'btn btn-blue'}

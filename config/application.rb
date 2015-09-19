@@ -23,6 +23,10 @@ module Junkyardirons
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    $INSTAGRAM_CLIENT_ID = ENV['INSTAGRAM_CLIENT_ID']
+    $GET_CLIENTS = "https://api.instagram.com/v1/users/search?q=[USERNAME]&client_id=#{$INSTAGRAM_CLIENT_ID}"
+    $GET_CLIENT_IMAGES = "https://api.instagram.com/v1/users/[USER ID]/media/recent/?client_id=#{$INSTAGRAM_CLIENT_ID}"
+
     config.generators do |g|
       g.template_engine :haml
     end

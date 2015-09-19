@@ -4,8 +4,7 @@
 
 %ul.no-bullets
   %li
-    %a{:href => "/user_recent_media"} User Recent Media
-    Calls user_recent_media - Get a list of a user's most recent media
+    = link_to 'Edit about me', about_me_edit_path
   %li
     %a{:href => "/user_media_feed"} User Media Feed
     Calls user_media_feed - Get the currently authenticated user's media feed uses pagination

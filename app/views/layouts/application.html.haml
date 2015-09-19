@@ -4,8 +4,15 @@
     %title Junkyardirons
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false
     = javascript_include_tag 'application', 'data-turbolinks-track' => false
+    / Latest compiled and minified CSS
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", :rel => "stylesheet"}
+    / Optional theme
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css", :rel => "stylesheet"}
+    / Latest compiled and minified JavaScript
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"}
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
     = csrf_meta_tags
   %body
     .container-fluid#main-body.centered
+      = render partial: 'layouts/top_bar'
       = yield

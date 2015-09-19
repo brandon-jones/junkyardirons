@@ -12,8 +12,8 @@
  *
  @import require_tree .
  @import require_self
- @import "bootstrap-sprockets";
- @import "bootstrap";
+ @import bootstrap-sprockets;
+ @import bootstrap;
  */
  
 body {
@@ -25,11 +25,12 @@ body {
 }
 
 #main-body {
-  background-color: #876c00;
   height:100vh;
   width: 80%;
-  opacity: 0.75;
+  background: rgb(135, 108, 0);
+  background: rgba(135, 108, 0, 0.9);
 }
+
 
 .centered {
   position: fixed;
@@ -37,4 +38,8 @@ body {
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
+}
+
+#admin-login {
+  list-style-type: none !important;
 }

@@ -14,5 +14,12 @@
     = csrf_meta_tags
   %body
     .container-fluid#main-body.centered
+      = render 'layouts/messages'
       = render partial: 'layouts/top_bar'
       = yield
+      - if Rails.env == 'development'
+        .row
+          .col-md-12
+            %br
+            %br
+            = debug params

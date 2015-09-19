@@ -58,4 +58,8 @@ Rails.application.routes.draw do
   root to: 'static_pages#home'
 
   get 'admin' => 'admin#index'
+
+  get 'about_me', to: 'about_me#show'
+  get 'about_me/edit', to: 'about_me#edit'
+  post 'about_me/update', to: 'about_me#update'
 end

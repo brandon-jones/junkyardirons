@@ -14,7 +14,7 @@ class StaticPagesController < ApplicationController
       result_hash = JSON.parse(result)
       if (result_hash["meta"]["code"] == 200)
         result_hash["data"].each do |result|
-          if result["tags"].include?('tattoomachine')
+          unless (result["tags"] & instagram.tags).empty?
             @instagram_images.push(result)
           end
         end

@@ -27,4 +27,15 @@ class InstagramController < ApplicationController
     instagram.save
     redirect_to admin_path
   end
+
+  def edit_tags
+    @instagram = Instagram.new
+  end
+
+  def update_tags
+    instagram = Instagram.new
+    instagram.tags = params["tags"]
+    instagram.save
+    redirect_to admin_path
+  end
 end

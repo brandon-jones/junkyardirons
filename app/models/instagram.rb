@@ -2,6 +2,7 @@ class Instagram
 
   attr_accessor :user
   attr_accessor :user_id
+  attr_accessor :tags
 
   def initialize
     file_contents = ""
@@ -10,14 +11,15 @@ class Instagram
     end
     file_split_contents = file_contents.split("\n")
     @user = get_file_value(file_split_contents.first)
-    @user_id = get_file_value(file_split_contents.last)
+    @user_id = get_file_value(file_split_contents[1])
+    @tags = get_file_value(file_split_contents.last).split(',')
     return self
   end
 
   def save
-    write_string = "user_name:{user_name}\nuser_id:{user_id}" 
+    write_string = "user_name:{user_name}\nuser_id:{user_id}\ntags:{tags}" 
     File.open(file_path, "w+") do |f|
-      f.write(write_string.sub("{user_name}",self.user).sub("{user_id}",self.user_id))
+      f.write(write_string.sub("{user_name}",self.user).sub("{user_id}",self.user_id).sub("{tags}",self.tags))
     end
     return self
   end

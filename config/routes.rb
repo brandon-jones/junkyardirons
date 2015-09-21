@@ -67,4 +67,7 @@ Rails.application.routes.draw do
   get 'instagram/edit_user', to: 'instagram#edit_user'
   post 'instagram/search_user', to: 'instagram#search_user'
   post 'instagram/update_user', to: 'instagram#update_user'
+
+  get 'instagram/edit_tags', to: 'instagram#edit_tags'
+  post 'instagram/update_tags', to: 'instagram#update_tags'
 end

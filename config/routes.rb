@@ -63,7 +63,6 @@ Rails.application.routes.draw do
   get 'about_my_machines/edit', to: 'about_my_machines#edit'
   post 'about_my_machines/update', to: 'about_my_machines#update'
 
-  get 'instagram/view_user', to: 'instagram#view_user'
   get 'instagram/edit_user', to: 'instagram#edit_user'
   post 'instagram/search_user', to: 'instagram#search_user'
   post 'instagram/update_user', to: 'instagram#update_user'

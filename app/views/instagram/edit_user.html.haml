@@ -6,6 +6,6 @@
     %br
     = form_tag("#{instagram_search_user_path}", html: {class: "form"}) do
       .form-group
-        %input{:name => "user_name", :type => "text", class: 'form-control'}
+        %input{:name => "user_name", :type => "text", :value => "#{@instagram.user}", class: 'form-control'}
       .form-group
         %input{:type => "submit", :value => "Find Instagram User", class: 'btn btn-blue'}

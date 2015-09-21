@@ -1,7 +1,4 @@
 class InstagramController < ApplicationController
-  def view_user
-    @instagram = Instagram.new
-  end
 
   def edit_user
     @instagram = Instagram.new

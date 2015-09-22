@@ -69,4 +69,5 @@ Rails.application.routes.draw do
 
   get 'instagram/edit_tags', to: 'instagram#edit_tags'
   post 'instagram/update_tags', to: 'instagram#update_tags'
+  get 'instagram_images/:user_id', to: 'instagram#get_images'
 end

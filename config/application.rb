@@ -26,6 +26,8 @@ module Junkyardirons
     $INSTAGRAM_ID = ENV['INSTAGRAM_ID']
     $GET_CLIENTS = "https://api.instagram.com/v1/users/search?q=[USERNAME]&client_id=#{$INSTAGRAM_ID}"
     $GET_CLIENT_IMAGES = "https://api.instagram.com/v1/users/[USER ID]/media/recent/?client_id=#{$INSTAGRAM_ID}"
+    $GET_CLIENT_IMAGES_NO_ID = "https://api.instagram.com/v1/users/[USER ID]/media/recent/?client_id=[CLIENT_ID]"
+    $GET_NEXT_URL = "https://api.instagram.com/v1/users/[USER_ID]/media/recent?max_id=[MAX_ID]&client_id=[CLIENT_ID]"
 
     config.generators do |g|
       g.template_engine :haml

@@ -8,8 +8,6 @@ namespace :db do
       system("rake db:create RAILS_ENV=test && rake db:create RAILS_ENV=development")
       puts 'migrating databases'
       system("rake db:migrate RAILS_ENV=test && rake db:migrate RAILS_ENV=development")
-      puts 'flushing redis'
-      $redis.flushall
     else
       puts 'ENV NOT DEV DUMBASS DONT DO THIS'
     end

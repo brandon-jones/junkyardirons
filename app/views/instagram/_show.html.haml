@@ -1,0 +1,23 @@
+- @instagram_images.each do |image|
+  .row
+    - binding.pry
+    .col-md-6.col-md-offset-3.instgram-ajax{data: { next_url: "#{@next_url}" }}
+      = image_tag(image["images"]["standard_resolution"]["url"])
+
+
+/ .show
+/   .row
+/     .col-md-9
+/       %p
+/         %b Title:
+/         = picture.title
+/       %p
+/         %b Description:
+/         = picture.description
+/     .col-md-3
+/       %button.btn.btn-default.edit-image{:type => "button", data: { id: "2", file_name: "2" }}
+/         Edit Image Details
+/   .row
+/     .col-md-12
+/       %p
+/         =image_tag  picture.image.url(:large)

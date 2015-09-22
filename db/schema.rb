@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918234411) do
+ActiveRecord::Schema.define(version: 20150922035726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "instagrams", force: :cascade do |t|
+    t.string   "image_tags"
+    t.datetime "created_time"
+    t.string   "image_id"
+    t.text     "instagram_link"
+    t.text     "low_resolution_url"
+    t.text     "thumbnail_url"
+    t.text     "standard_resolution_url"
+    t.text     "caption"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

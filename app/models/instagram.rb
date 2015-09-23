@@ -65,6 +65,7 @@ class Instagram < ActiveRecord::Base
           i['created_time'] = DateTime.strptime(result['created_time'],'%s')
           i['instagram_link'] = result['link']
           i['image_id'] = result['id']
+
           i['low_resolution_url'] = result['images']['low_resolution']['url']
           i['thumbnail_url'] = result['images']['thumbnail']['url']
           i['standard_resolution_url'] = result['images']['standard_resolution']['url']
@@ -97,7 +98,7 @@ class Instagram < ActiveRecord::Base
           i['image_tags'] = result['tags'].join(',')
           i['created_time'] = DateTime.strptime(result['created_time'],'%s')
           i['image_id'] = result['id']
-          break if i['created_time'] < latest_time  || i['image_id'] == result['id']
+          return if i['created_time'] < latest_time  || i['image_id'] == result['id']
           i['instagram_link'] = result['link']
           i['low_resolution_url'] = result['images']['low_resolution']['url']
           i['thumbnail_url'] = result['images']['thumbnail']['url']

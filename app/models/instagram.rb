@@ -18,7 +18,13 @@ class Instagram < ActiveRecord::Base
   def images
     tags = RedisModel.tags
     tags = tags.split(',') unless tags.class == Array || tags == nil || tags.empty?
-    return @instagram_images = Instagram.where(image_tags: tags)
+    @image_array = []
+    Instagram.all.each do |image|
+      if (image['image_tags'].split(',') & tags).count > 0
+        @image_array.push image
+      end
+    end
+    return @image_array
   end
 
   # def create

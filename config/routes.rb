@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   root to: 'static_pages#home'
 
   get 'admin', to: 'admin#index'
+  post 'admin/update_signup_status', to: 'admin#update_signup_status'
 
   get 'about_my_machines', to: 'about_my_machines#show'
   get 'about_my_machines/edit', to: 'about_my_machines#edit'

@@ -10,4 +10,16 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :authenticated_admin?
+
+  def to_bool(value)
+    return true if value == "true"
+    return false
+  end
+  helper_method :to_bool
+
+  def user_sign_up_enabled?
+    return to_bool(RedisModel.signups_enabled)
+  end
+
+  helper_method :user_sign_up_enabled?
 end

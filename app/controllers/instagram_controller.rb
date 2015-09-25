@@ -44,45 +44,8 @@ class InstagramController < ApplicationController
     # instagram = Instagram.new.read_file
     # instagram.tags = params["tags"]
     params.slice('tags').keys.each do |key|
-      temp_hash = {}
-      temp_hash['key'] = key
-      temp_hash['value'] = params[key]
-      RedisModel.update_value key, params[key]
+      RedisModel.update_value key, params[key].split(',').collect{ |x| x.strip}.join(',')
     end
     redirect_to admin_path
   end
-
-  # def get_images
-  #   # if params["next_id"] == "0"
-  #     instagram = Instagram.new
-  #     instagram_images = []
-  #     instagram_images_url = $GET_CLIENT_IMAGES
-  #     instagram_images_url = instagram_images_url.sub("[USER ID]",params['user_id'])
-  #     result = Net::HTTP.get(URI.parse(instagram_images_url))
-  #     result_hash = JSON.parse(result)
-  #     if (result_hash["meta"]["code"] == 200)
-  #       result_hash["data"].each do |result|
-  #         unless (result["tags"] & instagram.tags).empty?
-  #           instagram_images.push(result)
-  #         end
-  #       end
-  #     end
-  #     @return_results = {}
-  #     @return_results["pagination"] = result_hash["pagination"]
-  #     @return_results["data"] = instagram_images
-      
-  #     binding.pry
-  #   # end
-  #   # respond_to do |format|
-  #   #   format.json { render :show, status: :created, image_hash: @instagram_images }
-  #   # end
-
-  #   binding.pry
-  #   respond_to do |format|
-  #     format.html do
-  #         render partial: 'show', locals: { picture: @picture } and return
-  #     end
-  #     format.json { render json: @picture.to_json(:methods => [:thumbnail,:medium, :large])}
-  #   end
-  # end
 end

@@ -1,5 +1,4 @@
-.row
+.row.center
   - @instagram_images.each do |image|
-    .col-md-6.col-md-offset-3
-      = image_tag(image.standard_resolution_url)
-
+    .col-md-4
+      = image_tag(image.low_resolution_url)

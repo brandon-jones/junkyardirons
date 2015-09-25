@@ -1,27 +1,23 @@
 class Instagram < ActiveRecord::Base
 
-  attr_accessor :user
-  attr_accessor :user_id
-  attr_accessor :tags
-
-  def read_file
-    file_contents = ''
-    File.open(file_path, 'r') do |f|
-      file_contents = f.read
-    end
-    file_split_contents = file_contents.split("\n")
-    @user = get_file_value(file_split_contents.first)
-    @user_id = get_file_value(file_split_contents[1])
-    tags = get_file_value(file_split_contents.last)
-    unless tags == nil
-      @tags = tags.split(',').collect{|x| x.strip}
-    end
-    return self
-  end
+  # def read_file
+  #   file_contents = ''
+  #   File.open(file_path, 'r') do |f|
+  #     file_contents = f.read
+  #   end
+  #   file_split_contents = file_contents.split("\n")
+  #   @user = get_file_value(file_split_contents.first)
+  #   @user_id = get_file_value(file_split_contents[1])
+  #   tags = get_file_value(file_split_contents.last)
+  #   unless tags == nil
+  #     @tags = tags.split(',').collect{|x| x.strip}
+  #   end
+  #   return self
+  # end
 
   def images
-    instagram = Instagram.new
-    tags = instagram.read_file.tags
+    tags = StaticInfo.tags != nil ? StaticInfo.tags.value : nil
+    tags = tags.split(',') unless tags.class == Array || tags == nil || tags.empty?
     return @instagram_images = Instagram.where(image_tags: tags)
   end
 
@@ -34,42 +30,33 @@ class Instagram < ActiveRecord::Base
   #   end
   # end
 
-  def update_file
-    user_name = @user == nil ? '' : @user
-    user_id = @user_id == nil ? '' : @user_id
-    tags = @tags == nil ? [] : @tags
-    write_string = "user_name:#{user_name}\nuser_id:#{user_id}\ntags:#{tags}"
-    File.open(file_path, 'w+') do |f|
-      f.write(write_string)
-    end
-    return self
-  end
+  # def update_file
+  #   user_name = @user == nil ? '' : @user
+  #   user_id = @user_id == nil ? '' : @user_id
+  #   tags = @tags == nil ? [] : @tags
+  #   tags = tags.join(',') unless tags.class == String
+  #   write_string = "user_name:#{user_name}\nuser_id:#{user_id}\ntags:#{tags}"
+  #   File.open(file_path, 'w+') do |f|
+  #     f.write(write_string)
+  #   end
+  #   return self
+  # end
 
-  def tags_array
-    return [] unless @tags
-    return @tags
-  end
+  # def tags_array
+  #   return @tags
+  # end
 
   def reload_images
     Instagram.delete_all
     instagram_images_url = $GET_CLIENT_IMAGES
-    instagram_images_url = instagram_images_url.sub("[USER ID]",Instagram.new.read_file.user_id)
+    instagram_images_url = instagram_images_url.sub("[USER ID]",StaticInfo.user_id != nil ? StaticInfo.user_id.value : nil)
     begin
       result = Net::HTTP.get(URI.parse(instagram_images_url))
       result_hash = JSON.parse(result)
       if (result_hash['meta']['code'] == 200)
         result_hash['data'].each do |result|
           # unless (result['tags'] & instagram.tags).empty?
-          i = {}
-          i['image_tags'] = result['tags'].join(',')
-          i['created_time'] = DateTime.strptime(result['created_time'],'%s')
-          i['instagram_link'] = result['link']
-          i['image_id'] = result['id']
-
-          i['low_resolution_url'] = result['images']['low_resolution']['url']
-          i['thumbnail_url'] = result['images']['thumbnail']['url']
-          i['standard_resolution_url'] = result['images']['standard_resolution']['url']
-          i['caption'] = result['caption'] != nil ? result['caption']['text'] : nil
+          i = get_image_hash(result)
 
           instagram = Instagram.new i
           instagram.save
@@ -85,25 +72,19 @@ class Instagram < ActiveRecord::Base
   end
 
   def update_images
-    latest_time = Instagram.first.created_time
+    return unless StaticInfo.user_id != nil
+    latest_time = Instagram.first.created_time if Instagram.first
+    latest_time = DateTime.now - 20.years if latest_time == nil
     instagram_images_url = $GET_CLIENT_IMAGES
-    instagram_images_url = instagram_images_url.sub('[USER ID]',Instagram.new.read_file.user_id)
+    instagram_images_url = instagram_images_url.sub('[USER ID]',StaticInfo.user_id != nil ? StaticInfo.user_id.value : nil)
     begin
       result = Net::HTTP.get(URI.parse(instagram_images_url))
       result_hash = JSON.parse(result)
       if (result_hash['meta']['code'] == 200)
         result_hash['data'].each do |result|
           # unless (result['tags'] & instagram.tags).empty?
-          i = {}
-          i['image_tags'] = result['tags'].join(',')
-          i['created_time'] = DateTime.strptime(result['created_time'],'%s')
-          i['image_id'] = result['id']
+          i = get_image_hash(result)
           return if i['created_time'] < latest_time  || i['image_id'] == result['id']
-          i['instagram_link'] = result['link']
-          i['low_resolution_url'] = result['images']['low_resolution']['url']
-          i['thumbnail_url'] = result['images']['thumbnail']['url']
-          i['standard_resolution_url'] = result['images']['standard_resolution']['url']
-          i['caption'] = result['caption'] != nil ? result['caption']['text'] : nil
 
           instagram = Instagram.new i
           instagram.save
@@ -120,10 +101,23 @@ class Instagram < ActiveRecord::Base
 
   private
 
-  def file_path
-    return 'config/instagram_user_info.txt' if Rails.env == 'development'
-    return ENV['APP_PATH'] + '/shared/config/instagram_user_info.txt'
+  def get_image_hash(image_hash)
+    image = {}
+    image['image_tags'] = image_hash['tags'].join(',')
+    image['created_time'] = DateTime.strptime(image_hash['created_time'],'%s')
+    image['image_id'] = image_hash['id']
+    image['instagram_link'] = image_hash['link']
+    image['low_resolution_url'] = image_hash['images']['low_resolution']['url']
+    image['thumbnail_url'] = image_hash['images']['thumbnail']['url']
+    image['standard_resolution_url'] = image_hash['images']['standard_resolution']['url']
+    image['caption'] = image_hash['caption'] != nil ? image_hash['caption']['text'] : nil
+    return image
   end
+
+  # def file_path
+  #   return 'config/instagram_user_info.txt' if Rails.env == 'development'
+  #   return ENV['APP_PATH'] + '/shared/config/instagram_user_info.txt'
+  # end
 
   def get_file_value(file_line)
     return nil unless file_line

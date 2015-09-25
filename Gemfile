@@ -41,6 +41,8 @@ gem 'ckeditor'
 
 gem 'redis', '~> 3.2.1'
 
+gem 'mock_redis', '~> 0.14.1'
+
 #group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   #gem 'byebug'

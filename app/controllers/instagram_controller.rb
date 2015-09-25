@@ -1,3 +1,5 @@
+require 'net/http'
+
 class InstagramController < ApplicationController
 
   def edit_user

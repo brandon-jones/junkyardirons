@@ -16,7 +16,7 @@ class Instagram < ActiveRecord::Base
   # end
 
   def images
-    tags = StaticInfo.tags != nil ? StaticInfo.tags.value : nil
+    tags = RedisModel.tags
     tags = tags.split(',') unless tags.class == Array || tags == nil || tags.empty?
     return @instagram_images = Instagram.where(image_tags: tags)
   end
@@ -47,9 +47,10 @@ class Instagram < ActiveRecord::Base
   # end
 
   def reload_images
+    return unless RedisModel.user_id
     Instagram.delete_all
     instagram_images_url = $GET_CLIENT_IMAGES
-    instagram_images_url = instagram_images_url.sub("[USER ID]",StaticInfo.user_id != nil ? StaticInfo.user_id.value : nil)
+    instagram_images_url = instagram_images_url.sub("[USER ID]",RedisModel.user_id)
     begin
       result = Net::HTTP.get(URI.parse(instagram_images_url))
       result_hash = JSON.parse(result)
@@ -72,11 +73,11 @@ class Instagram < ActiveRecord::Base
   end
 
   def update_images
-    return unless StaticInfo.user_id != nil
+    return unless RedisModel.user_id != nil
     latest_time = Instagram.first.created_time if Instagram.first
     latest_time = DateTime.now - 20.years if latest_time == nil
     instagram_images_url = $GET_CLIENT_IMAGES
-    instagram_images_url = instagram_images_url.sub('[USER ID]',StaticInfo.user_id != nil ? StaticInfo.user_id.value : nil)
+    instagram_images_url = instagram_images_url.sub('[USER ID]',RedisModel.user_id)
     begin
       result = Net::HTTP.get(URI.parse(instagram_images_url))
       result_hash = JSON.parse(result)

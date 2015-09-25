@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
     instagram = Instagram.new
     instagram.update_images
     @instagram_images = instagram.images
-    @user_id = StaticInfo.user_id != nil ? StaticInfo.user_id.value : nil
+    @user_id = RedisModel.user_id
   end
 
 end

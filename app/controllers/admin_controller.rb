@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   
   def index
     # instagram = Instagram.new.read_file
-    @instagram_user = StaticInfo.user_name != nil ? StaticInfo.user_name.value : nil
-    @instagram_tags = StaticInfo.tags != nil ? StaticInfo.tags.value : nil
+    @instagram_user = RedisModel.user_name
+    @instagram_tags = RedisModel.tags
   end
 end

@@ -1,7 +1,7 @@
 class InstagramController < ApplicationController
 
   def edit_user
-    @instagram_user = StaticInfo.user_name != nil ? StaticInfo.user_name.value : nil
+    @instagram_user = RedisModel.user_name
   end
 
   def search_user
@@ -23,7 +23,7 @@ class InstagramController < ApplicationController
       temp_hash = {}
       temp_hash['key'] = key
       temp_hash['value'] = params[key]
-      StaticInfo.update_key key, params[key]
+      RedisModel.update_value key, params[key]
     end
 
     Instagram.new.reload_images
@@ -31,9 +31,11 @@ class InstagramController < ApplicationController
   end
 
   def edit_tags
-    @instagram_tags = StaticInfo.tags != nil ? StaticInfo.tags.value : nil
-    @instagram_tags.join(',') if @instagram_tags.class != String
-    @instagram_possible_tags = Instagram.all.pluck(:image_tags).delete_if(&:empty?).collect{ |x| x.split(',')}.flatten.uniq!.sort.join(', ')
+    if RedisModel.tags
+      @instagram_tags = RedisModel.tags
+      @instagram_tags.join(',') if @instagram_tags.class != String
+    end
+    @instagram_possible_tags = Instagram.all.pluck(:image_tags).delete_if(&:empty?).collect{ |x| x.split(',')}.flatten.uniq!.sort.join(', ') if Instagram.all.count > 0
   end
 
   def update_tags
@@ -43,7 +45,7 @@ class InstagramController < ApplicationController
       temp_hash = {}
       temp_hash['key'] = key
       temp_hash['value'] = params[key]
-      StaticInfo.update_key key, params[key]
+      RedisModel.update_value key, params[key]
     end
     redirect_to admin_path
   end

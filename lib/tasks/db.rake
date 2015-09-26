@@ -15,7 +15,9 @@ namespace :db do
   end
 
   task :enable_signups => :environment  do
-      $redis.set("signups_enabled", "true")
-    end
+    puts $redis.get("signups_enabled")
+    $redis.set("signups_enabled", "true")
+    puts $redis.get("signups_enabled")
+  end
 
 end

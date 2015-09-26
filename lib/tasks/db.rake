@@ -13,4 +13,9 @@ namespace :db do
       puts 'ENV NOT DEV DUMBASS DONT DO THIS'
     end
   end
+
+  task :enable_signups => :environment  do
+      $redis.set("signups_enabled", "true")
+    end
+
 end

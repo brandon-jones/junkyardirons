@@ -24,6 +24,10 @@ body {
   background-size: cover;
 }
 
+.custom-navbar {
+  background-color: black;
+}
+
 .round-corners {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -81,6 +85,18 @@ a:link {
     color: #2E4172;
 }
 
+.junkyard-font {
+  font-family: 'junkyard_font';
+}
+
+@font-face {
+  font-family: 'junkyard_font';
+  src: asset-url('junkyard_font.eot');
+  src: asset-url('junkyard_font.eot?iefix') format('eot'),
+       asset-url('junkyard_font.woff') format('woff'),
+       asset-url('junkyard_font.ttf') format('truetype'),
+}
+
 /* visited link */
 a:visited {
     color: #2E4172;
@@ -94,4 +110,13 @@ a:hover {
 /* selected link */
 a:active {
     color: #2E4172;
+}
+
+.about-my-machines-container {
+  background-color: white;
+  min-height: 20em !important;
+}
+
+.main-title {
+  font-size: 1000%;
 }

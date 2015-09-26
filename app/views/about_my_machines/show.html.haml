@@ -1,6 +1,6 @@
 .row
-  .col-sm-10.col-sm-offset-1.round-corners.main-container.about-me-container
-    %h1.text-center About My Machines
+  .col-sm-10.col-sm-offset-1.about-my-machines-container.round-corners
+    %h1.text-center.junkyard-font About My Machines
     - if current_user && current_user.admin?
       .new-work
         %a.no-decoration.btn.btn-xs{href: "#{about_my_machines_edit_path}"}

@@ -15,7 +15,8 @@
   %body
     .container-fluid#main-body.centered
       = render 'layouts/messages'
-      = render partial: 'layouts/top_bar'
+      = render partial: 'layouts/title'
+      = render partial: 'layouts/nav_bar'
       = yield
       - if Rails.env == 'development'
         .row

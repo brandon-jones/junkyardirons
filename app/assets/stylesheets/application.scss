@@ -30,6 +30,10 @@ body {
   border-radius: 10px;
 }
 
+#error_explanation {
+  color: red;
+}
+
 #main-body {
   min-height:100vh;
   width: 80%;
@@ -43,6 +47,19 @@ body {
   right: .25em;
 }
 
+
+.modal-body {
+    position:relative; /* This avoids image to go off the container */
+    // height: 250px;
+}
+.img-responsive {
+    position:absolute;
+    left:50%;
+    top:50%;
+    padding: 1em;
+    // margin-top:-25px; /* This needs to be half of the height */
+    // margin-left:-25px; /* This needs to be half of the width */
+}
 // .centered {
 //   position: fixed;
 //   top: 50%;

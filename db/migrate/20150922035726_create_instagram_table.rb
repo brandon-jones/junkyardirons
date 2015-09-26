@@ -9,6 +9,10 @@ class CreateInstagramTable < ActiveRecord::Migration
       t.text :thumbnail_url
       t.text :standard_resolution_url
       t.text :caption
+
+      t.string :low_resolution_size
+      t.string :thumbnail_size
+      t.string :standard_resolution_size
     end
   end
 end

@@ -1,4 +1,20 @@
-.row.center
+.row
+  .col-md-12
+    %h1.text-center Junkyard Irons
+.row.center-block
   - @instagram_images.each do |image|
     .col-md-4
-      = image_tag(image.low_resolution_url)
+      = link_to(image_tag(image.low_resolution_url), '#', html_options = {"data-target" => "#imageModal", "data-toggle" => "modal", "data-caption" => image.caption, "data-full-resolution-url" => image.standard_resolution_url, "data-width" => image.standard_resolution_width, "data-height" => image.standard_resolution_height})
+      %br
+      %br
+
+/ Large modal
+#imageModal.modal.fade{"aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-custom-size
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        .text-center.modal-caption
+      .modal-body{ :style => "" }
+        %img.img-responsive{:alt => "Instagram Image", :src => "", :class => "modal-image", :style => ""}

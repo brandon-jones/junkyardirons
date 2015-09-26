@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20150922035726) do
     t.text     "thumbnail_url"
     t.text     "standard_resolution_url"
     t.text     "caption"
+    t.string   "low_resolution_size"
+    t.string   "thumbnail_size"
+    t.string   "standard_resolution_size"
   end
 
   create_table "users", force: :cascade do |t|

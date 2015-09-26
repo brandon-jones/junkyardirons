@@ -27,6 +27,14 @@ class Instagram < ActiveRecord::Base
     return @image_array
   end
 
+  def standard_resolution_width
+    return self.standard_resolution_size.split(',')[0]
+  end
+
+  def standard_resolution_height
+    return self.standard_resolution_size.split(',')[1]
+  end
+
   # def create
   #   @contact = Instagram.new(contact_params)
   #   if @contact.save
@@ -115,8 +123,11 @@ class Instagram < ActiveRecord::Base
     image['image_id'] = image_hash['id']
     image['instagram_link'] = image_hash['link']
     image['low_resolution_url'] = image_hash['images']['low_resolution']['url']
+    image['low_resolution_size'] = image_hash['images']['low_resolution']['width'].to_s + ',' + image_hash['images']['low_resolution']['height'].to_s
     image['thumbnail_url'] = image_hash['images']['thumbnail']['url']
+    image['thumbnail_size'] = image_hash['images']['thumbnail']['width'].to_s + ',' + image_hash['images']['thumbnail']['height'].to_s
     image['standard_resolution_url'] = image_hash['images']['standard_resolution']['url']
+    image['standard_resolution_size'] = image_hash['images']['standard_resolution']['width'].to_s + ',' + image_hash['images']['standard_resolution']['height'].to_s
     image['caption'] = image_hash['caption'] != nil ? image_hash['caption']['text'] : nil
     return image
   end
@@ -132,6 +143,6 @@ class Instagram < ActiveRecord::Base
   end
 
   def contact_params
-    params.require(:contact).permit(:tags, :created_time, :instagram_link, :low_resolution_url, :thumbnail_url, :standard_reolution_url, :caption)
+    params.require(:contact).permit(:tags, :created_time, :instagram_link, :low_resolution_url, :thumbnail_url, :standard_reolution_url, :caption, :thumbnail_size, :low_resolution_size, :standard_size)
   end
 end

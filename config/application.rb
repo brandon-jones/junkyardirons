@@ -26,6 +26,8 @@ module Junkyardirons
     config.assets.precompile += Ckeditor.assets 
     config.assets.precompile += %w(ckeditor/*)
 
+    $app_image_path = Rails.env == 'development' ? '/app/assets/images/' : '/app/public/assets' 
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 

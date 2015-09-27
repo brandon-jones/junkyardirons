@@ -1,15 +1,18 @@
-%h1.text-center.junkyard-font Administration
-%ul.no-bullets
-  %li
-    = link_to 'Edit about my machines', about_my_machines_edit_path
-  %li
-    Current Instagram user:
-    = @instagram_user
-    = link_to 'Edit user', instagram_edit_user_path
-  %li
-    Current Instagram Tags:
-    = @instagram_tags
-    = link_to 'Edit tags', instagram_edit_tags_path
-  %li
-    Signups Enabled
-    = check_box_tag 'signups_enabled', 'true', @signups_enabled
+.main-container.round-corners
+  .row
+    .col-md-8.col-md-offset-2
+      %h1.text-center.junkyard-font Administration
+      %ul.no-bullets
+        %li
+          = link_to 'Edit about my machines', about_my_machines_edit_path
+        %li
+          Current Instagram user:
+          = @instagram_user
+          = link_to 'Edit user', instagram_edit_user_path
+        %li
+          Current Instagram Tags:
+          = @instagram_tags
+          = link_to 'Edit tags', instagram_edit_tags_path
+        %li
+          Signups Enabled
+          = check_box_tag 'signups_enabled', 'true', @signups_enabled

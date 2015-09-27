@@ -1,9 +1,16 @@
-= form_tag("#{about_my_machines_update_path}", html: {class: "form"}) do
+= form_tag("#{about_my_machines_update_path}", :multipart => true, class: "form") do
   .form-group
     .row
       .col-sm-12
         = cktext_area :about_my_machines, :description, :ckeditor => {:uiColor => '#E2D07A'}
   .form-group
     .row
+      .col-sm-12
+        Choose a new image for About my Machines.
+    .row
+      .col-sm-12
+        = file_field(:about_my_machines,:image, accept: 'image/png,image/jpeg,image/jpg', class: 'btn')
+  .form-group
+    .row
       .col-sm-4
-        %input{:type => "submit", :value => "Update About My Machines", class: 'btn btn-blue'}
+        %input{:type => "submit", :value => "Update About My Machines", class: 'btn'}

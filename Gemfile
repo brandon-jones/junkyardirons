@@ -35,6 +35,8 @@ gem 'haml-rails', '~> 0.9.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
+gem 'cloudinary'
+
 gem 'devise'
 
 gem 'ckeditor'

@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hgogk4zga
+  api_key: '978816685683437'
+  api_secret: coVXATWsLkqGxual2k8lvodM4mo
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hgogk4zga
+  api_key: '978816685683437'
+  api_secret: coVXATWsLkqGxual2k8lvodM4mo
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hgogk4zga
+  api_key: '978816685683437'
+  api_secret: coVXATWsLkqGxual2k8lvodM4mo
+  enhance_image_tag: true
+  static_image_support: false

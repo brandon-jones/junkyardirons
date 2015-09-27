@@ -1,5 +1,5 @@
 .row
-  .col-md-6.col-md-offset-3
+  .col-md-8.col-md-offset-2.main-container.round-corners
     %h1.text-center Edit Instagram Tags
     Type in the tags you want to scrape off instagram. Seperate the tags with commas. Leave empty to get image with no tags.
     %br
@@ -10,5 +10,12 @@
       .form-group
         %input{:type => "submit", :value => "Update Instagram Tags", class: 'btn'}
     %br
-    %h3 Current Instagram Tags
-    = @instagram_possible_tags
+    %h3.text-center Current Instagram Tags
+    - @instagram_possible_tags.each_slice(3) do |tags|
+      .row
+        .col-md-4
+          = tags[0]
+        .col-md-4
+          = tags[1]
+        .col-md-4
+          = tags[2]

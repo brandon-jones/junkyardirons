@@ -37,7 +37,7 @@ class InstagramController < ApplicationController
       @instagram_tags = RedisModel.tags
       @instagram_tags.join(',') if @instagram_tags.class != String
     end
-    @instagram_possible_tags = Instagram.all.pluck(:image_tags).delete_if(&:empty?).collect{ |x| x.split(',')}.flatten.uniq!.sort.join(', ') if Instagram.all.count > 0
+    @instagram_possible_tags = Instagram.all.pluck(:image_tags).delete_if(&:empty?).collect{ |x| x.split(',')}.flatten.uniq!.sort if Instagram.all.count > 0
   end
 
   def update_tags

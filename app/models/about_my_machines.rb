@@ -16,17 +16,11 @@ class AboutMyMachines
   end
 
   def save_new_file(image)
-    extension = File.extname(image.tempfile)
-    new_file_name = 'mini_me'
-    # File.delete(Dir.pwd + $app_image_path + get_file) if get_file && File.file?(Dir.pwd + $app_image_path + get_file) 
-    FileUtils.cp(image.tempfile, Dir.pwd + $app_image_path)
-    puts "NEW FILE NAME"
-    puts Dir.pwd+$app_image_path + new_file_name + extension
-    File.rename(Dir.pwd+ $app_image_path +File.basename(image.tempfile), Dir.pwd+$app_image_path + new_file_name + extension)
-    $redis.set(AboutMyMachines.redis_key, new_file_name + extension)
+    uploaded_file = Cloudinary::Uploader.upload(image.tempfile.path, :public_id => 'about_my_machine')
+    $redis.set(AboutMyMachines.redis_key, uploaded_file['url'])
   end
 
-  def get_file
+  def get_image_url
     return $redis.get(AboutMyMachines.redis_key) if $redis.get(AboutMyMachines.redis_key)
     return ''
   end

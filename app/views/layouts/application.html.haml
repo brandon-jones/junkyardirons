@@ -15,7 +15,7 @@
     = favicon_link_tag 'favicon.ico'
   %body
     .container-fluid#main-body.centered
-      = render 'layouts/messages'
+      = flash_msg(true)
       = render partial: 'layouts/title'
       = render partial: 'layouts/nav_bar'
       = yield

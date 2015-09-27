@@ -1,7 +1,7 @@
 require 'net/http'
 
 class InstagramController < ApplicationController
-
+  before_action :authenticated_admin?
   def edit_user
     @instagram_user = RedisModel.user_name
   end

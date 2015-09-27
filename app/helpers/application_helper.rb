@@ -12,4 +12,11 @@ module ApplicationHelper
     end
     nil
   end
+
+  def flash_msg(login=false)
+    builder = ""
+    if flash.count > 0
+      return render partial: "layouts/messages"
+    end
+  end
 end

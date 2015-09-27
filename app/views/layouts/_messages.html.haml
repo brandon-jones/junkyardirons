@@ -1,4 +1,19 @@
-- if flash.count > 0
-  .row
-    .col-md-12
-      = flash_messages
+:javascript
+  $(document).ready(function() {
+    $('#myModal').modal({
+     show: true,
+    })
+
+    setTimeout(function(){
+      $('#myModal').modal('hide');
+    }, 2000);
+
+  });
+/ Modal
+#myModal.modal.fade{"aria-" => "", "aria-hidden" => "true", :labelledby => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-body#mymodal-body
+        - flash.each do |key, value|
+          %div.flash.text-center{ class: "#{key}", id: "#{key}" }
+            =value

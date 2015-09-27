@@ -10,5 +10,4 @@
         - if @about_my_machines.description
           = @about_my_machines.description.html_safe
       .col-sm-4
-        - binding.pry
         = image_tag("#{@about_my_machines.get_file}", class: 'img-responsive')

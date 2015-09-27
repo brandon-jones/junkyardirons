@@ -19,8 +19,8 @@ class AboutMyMachines
     extension = File.extname(image.tempfile)
     new_file_name = 'mini_me'
     # File.delete(Dir.pwd + '/app/assets/images/' + get_file) if get_file && File.file?(Dir.pwd + '/app/assets/images/' + get_file) 
-    FileUtils.cp(image.tempfile, Dir.pwd + '/app/assets/images')
-    File.rename(Dir.pwd+'/app/assets/images/'+File.basename(image.tempfile), Dir.pwd+'/app/assets/images/' + new_file_name + extension)
+    FileUtils.cp(image.tempfile, Dir.pwd + $app_image_path)
+    File.rename(Dir.pwd+ $app_image_path +File.basename(image.tempfile), Dir.pwd+$app_image_path + new_file_name + extension)
     $redis.set(AboutMyMachines.redis_key, new_file_name + extension)
   end
 

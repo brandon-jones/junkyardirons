@@ -7,6 +7,8 @@
           %span.glyphicon.glyphicon-cog{title: 'Edit About My Machines'}
     .row
       .col-sm-6.col-sm-offset-1
-        = @about_my_machines.description.html_safe
+        - if @about_my_machines.description
+          = @about_my_machines.description.html_safe
       .col-sm-4
+        - binding.pry
         = image_tag("#{@about_my_machines.get_file}", class: 'img-responsive')

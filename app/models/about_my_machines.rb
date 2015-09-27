@@ -25,7 +25,8 @@ class AboutMyMachines
   end
 
   def get_file
-    return $redis.get(AboutMyMachines.redis_key)
+    return $redis.get(AboutMyMachines.redis_key) if $redis.get(AboutMyMachines.redis_key)
+    return ''
   end
 
   def self.redis_key

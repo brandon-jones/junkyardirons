@@ -1,7 +1,11 @@
 .row.center-block.home-container.main-container.round-corners
   - @instagram_images.each do |image|
-    .col-md-4
-      = link_to(image_tag(image.low_resolution_url), '#', html_options = {"data-target" => "#imageModal", "data-toggle" => "modal", "data-caption" => image.caption, "data-full-resolution-url" => image.standard_resolution_url, "data-width" => image.standard_resolution_width, "data-height" => image.standard_resolution_height})
+    .col-md-4.hidden-sm.hidden-xs
+      = link_to(image_tag(image.low_resolution_url, class: 'img-responsive'), '#', html_options = {"data-target" => "#imageModal", "data-toggle" => "modal", "data-caption" => image.caption, "data-full-resolution-url" => image.standard_resolution_url, "data-width" => image.standard_resolution_width, "data-height" => image.standard_resolution_height})
+      %br
+      %br
+    .col-md-4.hidden-md.hidden-lg
+      = image_tag(image.low_resolution_url, class: 'img-responsive center-block')
       %br
       %br
 

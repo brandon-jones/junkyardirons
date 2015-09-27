@@ -6,7 +6,7 @@
         %a.no-decoration.btn.btn-xs{href: "#{about_my_machines_edit_path}"}
           %span.glyphicon.glyphicon-cog{title: 'Edit About My Machines'}
     .row
-      .col-sm-6.col-sm-offset-2
+      .col-sm-6.col-sm-offset-1
         = @about_my_machines.description.html_safe
-      .col-sm-2
+      .col-sm-4
         = image_tag("mini_me.png", class: 'img-responsive')

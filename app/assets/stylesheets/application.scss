@@ -56,7 +56,7 @@ body {
     position:relative; /* This avoids image to go off the container */
     // height: 250px;
 }
-.img-responsive {
+.img-custom-responsive {
     position:absolute;
     left:50%;
     top:50%;
@@ -114,7 +114,7 @@ a:active {
 
 .about-my-machines-container {
   background-color: white;
-  min-height: 20em !important;
+  min-height: 26em !important;
 }
 
 .main-title {

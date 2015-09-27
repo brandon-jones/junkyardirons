@@ -37,8 +37,8 @@ $(function() {
     modal.find('img.modal-image')[0].src = fullResolutionUrl
     modal.find('.modal-body')[0].style.height = height + "px"
     // modal.find('.modal-body')[0].style.width = width + "px"
-    modal.find('.img-responsive')[0].style.marginTop = "-"+height/2 + "px"
-    modal.find('.img-responsive')[0].style.marginLeft = "-"+width/2 + "px"
+    modal.find('.img-custom-responsive')[0].style.marginTop = "-"+height/2 + "px"
+    modal.find('.img-custom-responsive')[0].style.marginLeft = "-"+width/2 + "px"
     modal.find('.modal-custom-size')[0].style.width = width+10 + "px"
     modal.find('.modal-caption').text(caption)
   })

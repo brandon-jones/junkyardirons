@@ -22,6 +22,10 @@ module Junkyardirons
 
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
+    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
+    config.assets.precompile += Ckeditor.assets
+    config.assets.precompile += %w(ckeditor/*)
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 

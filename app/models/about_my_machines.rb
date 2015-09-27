@@ -20,6 +20,8 @@ class AboutMyMachines
     new_file_name = 'mini_me'
     # File.delete(Dir.pwd + '/app/assets/images/' + get_file) if get_file && File.file?(Dir.pwd + '/app/assets/images/' + get_file) 
     FileUtils.cp(image.tempfile, Dir.pwd + '/app/assets/images/')
+    puts "NEW FILE NAME"
+    puts Dir.pwd+'/app/assets/images/' + new_file_name + extension
     File.rename(Dir.pwd+ '/app/assets/images/' +File.basename(image.tempfile), Dir.pwd+'/app/assets/images/' + new_file_name + extension)
     $redis.set(AboutMyMachines.redis_key, new_file_name + extension)
   end

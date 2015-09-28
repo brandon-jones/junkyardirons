@@ -56,7 +56,6 @@ body {
   right: .25em;
 }
 
-
 .modal-body {
     position:relative; /* This avoids image to go off the container */
     // height: 250px;
@@ -96,6 +95,7 @@ a:link {
 
 .junkyard-font {
   font-family: 'junkyard_font';
+  font-size: 8vw;
 }
 
 @font-face {
@@ -125,14 +125,13 @@ a:active {
     color: #2E4172;
 }
 
-.centered-image {
-}
-
 .main-container {
   background-color: white;
   min-height: 10em !important;
   padding-bottom: .5em;
   @extend .round-corners;
+  margin-right: .5em;
+  margin-left: .5em;
 }
 
 .main-title {

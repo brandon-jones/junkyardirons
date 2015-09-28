@@ -90,6 +90,10 @@ a:link {
     color: #2E4172;
 }
 
+.instagram-link {
+  padding: 10px 7px 7px 7px !important;
+}
+
 .junkyard-font {
   font-family: 'junkyard_font';
 }
@@ -100,6 +104,10 @@ a:link {
   src: asset-url('junkyard_font.eot?iefix') format('eot'),
        asset-url('junkyard_font.woff') format('woff'),
        asset-url('junkyard_font.ttf') format('truetype'),
+}
+
+.fa-instagram {
+  color: white;
 }
 
 /* visited link */
@@ -124,6 +132,7 @@ a:active {
   background-color: white;
   min-height: 10em !important;
   padding-bottom: .5em;
+  @extend .round-corners;
 }
 
 .main-title {

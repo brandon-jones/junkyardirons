@@ -12,6 +12,9 @@
         %li
           %a{:href => "/about_my_machines"} About my Machines
       %ul.nav.navbar-nav.navbar-right
+        %li
+          %a{:href => "https://instagram.com/#{RedisModel.user_name}/", :target => "_blank", :class => "instagram-link"}
+            %i.fa.fa-instagram.fa-2x
         - if current_user
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}

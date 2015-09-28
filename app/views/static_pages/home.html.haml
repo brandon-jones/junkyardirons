@@ -1,4 +1,4 @@
-.row.center-block.home-container.main-container.round-corners
+.row.center-block.main-container.home-container
   - @instagram_images.each do |image|
     .col-md-4.hidden-sm.hidden-xs
       = link_to(image_tag(image.low_resolution_url, class: 'img-responsive'), '#', html_options = {"data-target" => "#imageModal", "data-toggle" => "modal", "data-caption" => image.caption, "data-full-resolution-url" => image.standard_resolution_url, "data-width" => image.standard_resolution_width, "data-height" => image.standard_resolution_height})

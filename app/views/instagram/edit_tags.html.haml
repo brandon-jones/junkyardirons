@@ -6,7 +6,7 @@
     %br
     = form_tag("#{instagram_update_tags_path}", html: {class: "form"}) do
       .form-group
-        %input{:name => "tags", :type => "text", class: 'form-control', :value => @instagram_tags}
+        %input{:name => "tags", :type => "text", class: 'form-control', :value => @instagram_tags, :id => 'instagram-tags'}
       .form-group
         %input{:type => "submit", :value => "Update Instagram Tags", class: 'btn'}
     %br
@@ -14,8 +14,8 @@
     - @instagram_possible_tags.each_slice(3) do |tags|
       .row
         .col-md-4
-          = tags[0]
+          = render partial: 'tag_helper', locals: { tag: tags[0], tag_array: @instagram_tags_array }
         .col-md-4
-          = tags[1]
+          = render partial: 'tag_helper', locals: { tag: tags[1], tag_array: @instagram_tags_array }
         .col-md-4
-          = tags[2]
+          = render partial: 'tag_helper', locals: { tag: tags[2], tag_array: @instagram_tags_array }

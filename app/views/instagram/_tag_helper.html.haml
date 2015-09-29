@@ -1,7 +1,7 @@
 - first = tag_array.include?(tag) ? '' : 'none'
-%a{:href => "#", class: "instagram-tags-minus #{tag}", :style=>"display:#{first};", data: { tag_name: "#{tag}" }}
+%a{:href => "#", class: "instagram-tags-minus #{tag}-tag", :style=>"display:#{first};", data: { tag_name: "#{tag}" }}
   %span.glyphicon.glyphicon-minus{"aria-hidden" => "true", "style" => "color:red"}
 - second = tag_array.include?(tag) ? 'none' : ''  
-%a{:href => "#", class: "instagram-tags-add #{tag}", :style=>"display:#{second};", data: { tag_name: "#{tag}" }}
+%a{:href => "#", class: "instagram-tags-add #{tag}-tag", :style=>"display:#{second};", data: { tag_name: "#{tag}" }}
   %span.glyphicon.glyphicon-plus{"aria-hidden" => "true", "style" => "color:green"}
 = tag

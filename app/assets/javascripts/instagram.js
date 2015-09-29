@@ -11,7 +11,7 @@ addTag = function(e) {
   e.preventDefault();
   var tagName = this.dataset.tagName
   addToTextBox(tagName)
-  flipVisibilty($('.'+tagName))
+  flipVisibilty($('.'+tagName+'-tag'))
 };
 
 minusTag = function(e) {
@@ -19,7 +19,7 @@ minusTag = function(e) {
   e.preventDefault();
   var tagName = this.dataset.tagName
   removeFromTextBox(tagName)
-  flipVisibilty($('.'+tagName))
+  flipVisibilty($('.'+tagName+'-tag'))
 };
 
 addToTextBox = function(tagName) {

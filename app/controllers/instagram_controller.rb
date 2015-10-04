@@ -47,7 +47,7 @@ class InstagramController < ApplicationController
     # instagram = Instagram.new.read_file
     # instagram.tags = params["tags"]
     params.slice('tags').keys.each do |key|
-      RedisModel.update_value key, params[key].split(',').collect{ |x| x.strip}.join(',')
+      RedisModel.update_value key, params[key].split(',').collect{ |x| x.strip}.collect(&:downcase).join(',')
     end
     redirect_to admin_path
   end

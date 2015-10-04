@@ -1,27 +1,13 @@
 class Instagram < ActiveRecord::Base
 
-  # def read_file
-  #   file_contents = ''
-  #   File.open(file_path, 'r') do |f|
-  #     file_contents = f.read
-  #   end
-  #   file_split_contents = file_contents.split("\n")
-  #   @user = get_file_value(file_split_contents.first)
-  #   @user_id = get_file_value(file_split_contents[1])
-  #   tags = get_file_value(file_split_contents.last)
-  #   unless tags == nil
-  #     @tags = tags.split(',').collect{|x| x.strip}
-  #   end
-  #   return self
-  # end
-
   def images
     tags = RedisModel.tags
     tags = tags.split(',') unless tags.class == Array || tags == nil || tags.empty?
+    tags.collect!(&:downcase) unless tags == nil
     @image_array = []
     if tags
       Instagram.all.each do |image|
-        if (image['image_tags'].split(',') & tags).count > 0
+        if (image['image_tags'].split(',').collect!(&:downcase) & tags).count > 0
           @image_array.push image
         end
       end
@@ -91,11 +77,6 @@ class Instagram < ActiveRecord::Base
     image['caption'] = image_hash['caption'] != nil ? image_hash['caption']['text'] : nil
     return image
   end
-
-  # def file_path
-  #   return 'config/instagram_user_info.txt' if Rails.env == 'development'
-  #   return ENV['APP_PATH'] + '/shared/config/instagram_user_info.txt'
-  # end
 
   def get_file_value(file_line)
     return nil unless file_line

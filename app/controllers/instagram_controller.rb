@@ -33,10 +33,12 @@ class InstagramController < ApplicationController
   end
 
   def edit_tags
+    @instagram_tags_array = []
     if RedisModel.tags
       @instagram_tags = RedisModel.tags
       @instagram_tags.join(',') if @instagram_tags.class != String
       @instagram_tags_array = @instagram_tags.split(',')
+      @instagram_tags_array = [] if @instagram_tags_array == nil
     end
     @instagram_possible_tags = Instagram.all.pluck(:image_tags).delete_if(&:empty?).collect{ |x| x.split(',')}.flatten.uniq!.sort if Instagram.all.count > 0
   end

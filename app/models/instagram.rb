@@ -19,9 +19,11 @@ class Instagram < ActiveRecord::Base
     tags = RedisModel.tags
     tags = tags.split(',') unless tags.class == Array || tags == nil || tags.empty?
     @image_array = []
-    Instagram.all.each do |image|
-      if (image['image_tags'].split(',') & tags).count > 0
-        @image_array.push image
+    if tags
+      Instagram.all.each do |image|
+        if (image['image_tags'].split(',') & tags).count > 0
+          @image_array.push image
+        end
       end
     end
     return @image_array
@@ -35,76 +37,36 @@ class Instagram < ActiveRecord::Base
     return self.standard_resolution_size.split(',')[1]
   end
 
-  # def create
-  #   @contact = Instagram.new(contact_params)
-  #   if @contact.save
-  #     flash[:success] = 'Images Updated!'
-  #   else
-  #     flash[:alert] = 'Images not Updated!'
-  #   end
-  # end
-
-  # def update_file
-  #   user_name = @user == nil ? '' : @user
-  #   user_id = @user_id == nil ? '' : @user_id
-  #   tags = @tags == nil ? [] : @tags
-  #   tags = tags.join(',') unless tags.class == String
-  #   write_string = "user_name:#{user_name}\nuser_id:#{user_id}\ntags:#{tags}"
-  #   File.open(file_path, 'w+') do |f|
-  #     f.write(write_string)
-  #   end
-  #   return self
-  # end
-
-  # def tags_array
-  #   return @tags
-  # end
-
   def reload_images
-    return unless RedisModel.user_id
     Instagram.delete_all
-    instagram_images_url = $GET_CLIENT_IMAGES
-    instagram_images_url = instagram_images_url.sub("[USER ID]",RedisModel.user_id)
-    begin
-      result = Net::HTTP.get(URI.parse(instagram_images_url))
-      result_hash = JSON.parse(result)
-      if (result_hash['meta']['code'] == 200)
-        result_hash['data'].each do |result|
-          # unless (result['tags'] & instagram.tags).empty?
-          i = get_image_hash(result)
-
-          instagram = Instagram.new i
-          instagram.save
-          #   @instagram_images.push(result)
-          # end
-        end
-      end
-      puts result_hash['pagination']
-      if result_hash['pagination'] && result_hash['pagination']['next_url']
-        instagram_images_url = result_hash['pagination']['next_url']
-      end
-    end while result_hash['pagination'] && result_hash['pagination']['next_url']
+    image_scrape
   end
 
   def update_images
+    image_scrape
+  end
+
+  private
+
+  def image_scrape
     return unless RedisModel.user_id != nil
-    latest_time = Instagram.first.created_time if Instagram.first
-    latest_time = DateTime.now - 20.years if latest_time == nil
     instagram_images_url = $GET_CLIENT_IMAGES
-    instagram_images_url = instagram_images_url.sub('[USER ID]',RedisModel.user_id)
+    instagram_images_url = instagram_images_url.sub("[USER ID]",RedisModel.user_id)
+
+    most_recent_instgram_image = Instagram.order(created_time: :desc).first if Instagram.count > 0
+    latest_time = most_recent_instgram_image == nil ? nil : most_recent_instgram_image.created_time
+    latest_time = DateTime.now - 20.years if latest_time == nil
+    latest_id = most_recent_instgram_image == nil ? nil : most_recent_instgram_image.image_id
+
     begin
       result = Net::HTTP.get(URI.parse(instagram_images_url))
       result_hash = JSON.parse(result)
       if (result_hash['meta']['code'] == 200)
         result_hash['data'].each do |result|
-          # unless (result['tags'] & instagram.tags).empty?
           i = get_image_hash(result)
-          return if i['created_time'] < latest_time  || i['image_id'] == result['id']
-
+          return if i['created_time'] < latest_time  || i['image_id'] == latest_id
           instagram = Instagram.new i
           instagram.save
-          #   @instagram_images.push(result)
-          # end
         end
       end
       puts result_hash['pagination']
@@ -113,8 +75,6 @@ class Instagram < ActiveRecord::Base
       end
     end while result_hash['pagination'] && result_hash['pagination']['next_url']
   end
-
-  private
 
   def get_image_hash(image_hash)
     image = {}

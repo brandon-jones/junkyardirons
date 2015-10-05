@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   def index
     # instagram = Instagram.new.read_file
     @instagram_user = RedisModel.user_name
-    @instagram_tags = RedisModel.tags.split(',').join(', ')
+    @instagram_tags = RedisModel.tags ? RedisModel.tags.split(',').join(', ') : ""
     @signups_enabled = to_bool(RedisModel.signups_enabled)
   end
 

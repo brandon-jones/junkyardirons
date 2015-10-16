@@ -1,6 +1,6 @@
 class AboutMyMachines
 
-  attr_accessor :description
+  attr_accessor :description, :image
 
   def initialize
       @description = $redis.get('about_my_machines')

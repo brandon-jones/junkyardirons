@@ -1,4 +1,5 @@
 class AboutMyMachines
+  # has_many :pictures, as: :imageable
 
   attr_accessor :description, :image
 

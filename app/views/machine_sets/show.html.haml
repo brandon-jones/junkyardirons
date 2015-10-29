@@ -1,0 +1,23 @@
+.row
+  .col-md-10.col-md-offset-1.main-container
+    %p#notice= notice
+    - binding.pry
+    %p
+      %b Title:
+      = @machine_set.title
+    %p
+      %b Description:
+      = @machine_set.description
+    %p
+      %b Price:
+      = @machine_set.price
+    %p
+      %b Quantity:
+      = @machine_set.quantity
+    %p
+      %b Image url:
+      = @machine_set.image_url
+
+    = link_to 'Edit', edit_machine_set_path(@machine_set)
+    \|
+    = link_to 'Back', machine_sets_path

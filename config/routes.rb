@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :images
+
+  resources :machine_sets do 
+    resources :machines
+  end
+
+  get 'machines/new_form', to: 'machines#new_form'
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -60,15 +68,29 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin#index'
   post 'admin/update_signup_status', to: 'admin#update_signup_status'
 
-  get 'about_my_machines', to: 'about_my_machines#show'
-  get 'about_my_machines/edit', to: 'about_my_machines#edit'
-  post 'about_my_machines/update', to: 'about_my_machines#update'
+  namespace 'about_my_machines' do
+    get 'show'
+    get 'edit'
+    post 'update'
+  end
 
-  get 'instagram/edit_user', to: 'instagram#edit_user'
-  post 'instagram/search_user', to: 'instagram#search_user'
-  post 'instagram/update_user', to: 'instagram#update_user'
+  namespace 'instagram' do
+    get 'edit_user'
+    post 'search_user'
+    post 'update_user'
+    get 'edit_tags'
+    post 'update_tags'
+    get 'images/:user_id', to: '#get_images'
+  end
+  # get 'about_my_machines', to: 'about_my_machines#show'
+  # get 'about_my_machines/edit', to: 'about_my_machines#edit'
+  # post 'about_my_machines/update', to: 'about_my_machines#update'
 
-  get 'instagram/edit_tags', to: 'instagram#edit_tags'
-  post 'instagram/update_tags', to: 'instagram#update_tags'
-  get 'instagram_images/:user_id', to: 'instagram#get_images'
+  # get 'instagram/edit_user', to: 'instagram#edit_user'
+  # post 'instagram/search_user', to: 'instagram#search_user'
+  # post 'instagram/update_user', to: 'instagram#update_user'
+
+  # get 'instagram/edit_tags', to: 'instagram#edit_tags'
+  # post 'instagram/update_tags', to: 'instagram#update_tags'
+  # get 'instagram_images/:user_id', to: 'instagram#get_images'
 end

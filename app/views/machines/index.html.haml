@@ -1,0 +1,25 @@
+%h1 Listing machines
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th Machine set
+      %th
+      %th
+      %th
+
+  %tbody
+    - @machines.each do |machine|
+      %tr
+        %td= machine.title
+        %td= machine.description
+        %td= machine.machine_set_id
+        %td= link_to 'Show', machine
+        %td= link_to 'Edit', edit_machine_path(machine)
+        %td= link_to 'Destroy', machine, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Machine', new_machine_path

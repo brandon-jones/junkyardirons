@@ -1,0 +1,9 @@
+.row
+  .col-md-10.col-md-offset-1.main-container
+    %h1.text-center Edit Set
+
+    = render 'form'
+
+    = link_to 'Show', @machine_set
+    \|
+    = link_to 'Back', machine_sets_path

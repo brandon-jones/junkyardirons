@@ -1,0 +1,44 @@
+#accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+  .panel.panel-default
+    #headingOne.panel-heading{:role => "tab"}
+      %h4.panel-title
+        %a{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne", :role => "button", :class => "new-machine-title"}
+          = machine.title == nil ? 'New Machine' : machine.title
+        %button.btn.btn-default.btn-xs.pull-right.remove-new-machine{"aria-label" => "Left Align", :type => "button"}
+          %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", style: "color:red"}
+    #collapseOne.panel-collapse.collapse.in{"aria-labelledby" => "headingOne", :role => "tabpanel"}
+      .panel-body
+        .new-machine-title
+          New Machine
+        .form-group
+          .row
+            .col-md-12
+              = label_tag :title          
+              = text_field_tag "machine_set[machines][#{@counter}][title]", machine.title , class: 'form-control machine-title', :placeholder => "Title for machine"
+        .form-group
+          .row
+            .col-md-12
+              = label_tag :description
+              = text_area_tag "machine_set[machines][#{@counter}][description]", machine.description, class: 'form-control', :placeholder => "Description for machine"
+        .form-group
+          .row
+            .col-md-12
+              = label_tag :images
+              = file_field("machine_set[machines][#{@counter}]",:images, accept: 'image/png,image/jpeg,image/jpg', class: 'btn', :multiple => true  )
+        - machine.images.each do |image|
+          .form-group
+            .row
+              .col-md-3
+                = link_to(image_tag(image.url, class: 'img-responsive ', style: "max-height: 5em;"), '#', html_options = {"data-target" => "#imageModal", "data-toggle" => "modal", "data-full-resolution-url" => image.url, "data-width" => image.width, "data-height" => image.height})
+              .col-md-8
+                testing
+              .col-md-1
+                thrid
+              
+#imageModal.modal.fade{"aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-custom-size
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+      .modal-body{ :style => "" }
+        %img.img-custom-responsive.img-responsive{:alt => "Machine Image", :src => "", :class => "modal-image", :style => ""}

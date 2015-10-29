@@ -1,0 +1,38 @@
+= form_for @machine_set, :html => { :multipart => true } do |f|
+  - if @machine_set.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@machine_set.errors.count, "error")} prohibited this machine_set from being saved:"
+      %ul
+        - @machine_set.errors.full_messages.each do |msg|
+          %li= msg
+
+  - if @machine.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@machine.errors.count, "error")} prohibited this machine from being saved:"
+      %ul
+        - @machine.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    .row
+      .col-md-9
+        = f.label :title
+        = f.text_field :title, class: 'form-control', :placeholder => "Title for entire set"
+      .col-md-3
+        = f.label :price
+        .input-group
+          .input-group-addon $
+          = f.text_field :price, class: 'form-control', :placeholder => "Amount"
+  .form-group
+    .row
+      .col-md-9
+        = f.label :description
+        = f.text_area :description, class: 'form-control', :placeholder => "Description for entire set"
+      .col-md-3
+        = f.label :quantity
+        = f.number_field :quantity, class: 'form-control', :value => 1
+  - @machines.each do |machine|
+    = render partial: 'machines/form', locals: { machine: machine }
+    - @counter += 1
+  = f.button 'Add New Machine', class: 'btn btn-info add-machine pull-right', type: 'button'
+  .form-group
+    = f.submit 'Save', class: 'btn btn-default'

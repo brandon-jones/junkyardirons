@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @machine.title
+%p
+  %b Description:
+  = @machine.description
+%p
+  %b Machine set:
+  = @machine.machine_set_id
+
+= link_to 'Edit', edit_machine_path(@machine)
+\|
+= link_to 'Back', machines_path

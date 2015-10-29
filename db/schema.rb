@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922035726) do
+ActiveRecord::Schema.define(version: 20151022154836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "images", force: :cascade do |t|
+    t.string   "public_id"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "format"
+    t.integer  "bytes"
+    t.string   "url"
+    t.string   "secure_url"
+    t.integer  "machine_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "instagrams", force: :cascade do |t|
     t.string   "image_tags"
@@ -28,6 +41,24 @@ ActiveRecord::Schema.define(version: 20150922035726) do
     t.string   "low_resolution_size"
     t.string   "thumbnail_size"
     t.string   "standard_resolution_size"
+  end
+
+  create_table "machine_sets", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.decimal  "price",       precision: 8, scale: 2
+    t.integer  "quantity"
+    t.text     "image_url"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "machines", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "machine_set_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,6 +6,7 @@ class AdminController < ApplicationController
     @instagram_user = RedisModel.user_name
     @instagram_tags = RedisModel.tags ? RedisModel.tags.split(',').join(', ') : ""
     @signups_enabled = to_bool(RedisModel.signups_enabled)
+    @cloudinary_info = Cloudinary::Api.usage
   end
 
   def update_signup_status

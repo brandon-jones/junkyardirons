@@ -34,6 +34,35 @@ body {
   border-color: black;
 }
 
+.machine-images-row {
+  border: 1px solid black;
+}
+
+.machine-images {
+  border: 1px solid black;
+}
+
+.machine-image {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.machine-images-row-for-group {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.new-machine {
+  border: 1px solid black;
+  padding: .5em .5em .5em .5em;
+  @extend .round-corners;
+  margin-bottom: .75em;
+  .new-machine-title {
+    font-size: 200%;
+    font-weight: bold;
+  }
+}
+
 .custom-navbar {
   background-color: black;
 }

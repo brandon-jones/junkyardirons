@@ -1,17 +1,59 @@
 .row
   .col-md-8.col-md-offset-2.main-container
     %h1.text-center.junkyard-font Admin
+    %h5
+      About my Machines
     %ul.no-bullets
       %li
         = link_to 'Edit about my machines', about_my_machines_edit_path
+    %h5
+      Machine Sets
+    %ul.no-bullets
+      %li
+        = link_to 'New Machine set', new_machine_set_path
+    %h5
+      Instagram
+    %ul.no-bullets
       %li
         Current Instagram user:
+        %br
         = @instagram_user
         = link_to 'Edit user', instagram_edit_user_path
       %li
         Current Instagram Tags:
+        %br
         = @instagram_tags
         = link_to 'Edit tags', instagram_edit_tags_path
+    %h5
+      Signups for the site
+    %ul.no-bullets
       %li
         Signups Enabled
         = check_box_tag 'signups_enabled', 'true', @signups_enabled
+    %h5
+      Upload data usage
+    %ul.no-bullets
+      %li
+        Plan:
+        = @cloudinary_info['plan']
+      %li
+        Last Updated:
+        = @cloudinary_info['last_updated']
+      %li
+        Objects used:
+        = @cloudinary_info['objects']['used_percent']
+        :escaped 
+          %
+      %li
+        Bandwidth used:
+        = @cloudinary_info['bandwidth']['used_percent']
+        :escaped 
+          %
+      %li
+        Storage used:
+        = @cloudinary_info['storage']['used_percent']
+        :escaped 
+          %
+      %li
+        Resources:
+        = @cloudinary_info['resources']

@@ -1,0 +1,31 @@
+.row
+  .col-md-10.col-md-offset-1.main-container
+    %h1.text-center Listing Sets
+
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Description
+          %th Price
+          %th Quantity
+          %th Image url
+          %th
+          %th
+          %th
+
+      %tbody
+        - @machine_sets.each do |machine_set|
+          %tr
+            %td= machine_set.title
+            %td= machine_set.description
+            %td= machine_set.price
+            %td= machine_set.quantity
+            %td= machine_set.image_url
+            %td= link_to 'Show', machine_set
+            %td= link_to 'Edit', edit_machine_set_path(machine_set)
+            %td= link_to 'Destroy', machine_set, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    %br
+
+    = link_to 'New Machine set', new_machine_set_path

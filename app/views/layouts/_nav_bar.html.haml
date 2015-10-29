@@ -10,7 +10,9 @@
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav
         %li
-          %a{:href => "/about_my_machines"} About my Machines
+          %a{:href => "#{about_my_machines_show_path}"} About my Machines
+        %li
+          %a{:href => "#{machine_sets_path}"} Buy my Machines
       %ul.nav.navbar-nav.navbar-right
         %li
           %a{:href => "https://instagram.com/#{RedisModel.user_name}/", :target => "_blank", :class => "instagram-link"}

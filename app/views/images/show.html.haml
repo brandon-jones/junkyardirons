@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Public:
+  = @image.public_id
+%p
+  %b Width:
+  = @image.width
+%p
+  %b Height:
+  = @image.height
+%p
+  %b Format:
+  = @image.format
+%p
+  %b Bytes:
+  = @image.bytes
+%p
+  %b Url:
+  = @image.url
+%p
+  %b Secure url:
+  = @image.secure_url
+%p
+  %b Imageable:
+  = @image.imageable_id
+%p
+  %b Imageable type:
+  = @image.imageable_type
+
+= link_to 'Edit', edit_image_path(@image)
+\|
+= link_to 'Back', images_path

@@ -1,0 +1,37 @@
+= form_for @image do |f|
+  - if @image.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@image.errors.count, "error")} prohibited this image from being saved:"
+      %ul
+        - @image.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :public_id
+    = f.text_field :public_id
+  .field
+    = f.label :width
+    = f.number_field :width
+  .field
+    = f.label :height
+    = f.number_field :height
+  .field
+    = f.label :format
+    = f.text_field :format
+  .field
+    = f.label :bytes
+    = f.number_field :bytes
+  .field
+    = f.label :url
+    = f.text_field :url
+  .field
+    = f.label :secure_url
+    = f.text_field :secure_url
+  .field
+    = f.label :imageable_id
+    = f.number_field :imageable_id
+  .field
+    = f.label :imageable_type
+    = f.number_field :imageable_type
+  .actions
+    = f.submit 'Save'

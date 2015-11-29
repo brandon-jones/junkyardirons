@@ -3,23 +3,24 @@
 
 $(document).ready(function() {
   $('.add-machine').on('click', addMachineForm)
-  $('.remove-new-machine').on('click', removeMachineForm)
+  $('.machine-remove').on('click', removeMachineForm)
   $('.machine-title').on('keyup', updateTitle)
+  $('.machine-images-remove').on('click', removeImageFromMachine)
 });
 
 addMachineForm = function(e) {
   e.stopPropagation();
   e.preventDefault();
-  innerHtml = $('.new-machine-section')[0].innerHTML;
+  innerHtml = $('#accordion.panel-group')[0].innerHTML;
   return $.ajax({
     type: 'GET',
     url: '/machines/new_form',
     dataType: 'html',
     success: function(data, textStatus) {
-      $('.new-machine-section').append(data);
+      $('#accordion.panel-group').append(data);
 
-      $('.remove-new-machine').unbind("click");
-      $('.remove-new-machine').on("click", removeMachineForm);
+      $('.machine-remove').unbind("click");
+      $('.machine-remove').on("click", removeMachineForm);
       $('.machine-title').unbind("keyup");
       $('.machine-title').on("keyup", updateTitle);
     }
@@ -29,7 +30,57 @@ addMachineForm = function(e) {
 removeMachineForm = function(e) {
   e.stopPropagation();
   e.preventDefault();
-  this.parentNode.parentNode.remove();
+  console.log("hello");
+  error = false;
+  panel = this.parentNode.parentNode.parentNode;
+  panel_title = panel.getElementsByClassName("machine-title")[0].value;
+  panel_description = panel.getElementsByClassName("machine-description")[0].value;
+  panel_images = panel.getElementsByClassName("machine-images")[0].files.length;
+
+  if (panel_title.length > 0)
+  {
+    error = true;
+  }
+
+  if (panel_description.length > 0)
+  {
+    error = true;
+  }
+
+  if (panel_description > 0)
+  {
+    error = true;
+  }
+
+  if (error == true)
+  {
+    if (confirm('You have unsaved work. Are you sure you want to remove it. THIS CAN NOT BE UNDONE!')) {
+      panel.remove();
+    } else {
+        // Do nothing!
+    }
+  }
+  else 
+  {
+    panel.remove();
+  }
+};
+
+
+removeImageFromMachine = function(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  id = this.dataset.id;
+  console.log("hello");
+  innerHtml = $('#accordion.panel-group')[0].innerHTML;
+  return $.ajax({
+    type: 'DELETE',
+    url: '/images/'+id,
+    dataType: 'html',
+    success: function(data, textStatus) {
+      $('#image-id-'+id).remove();
+    }
+  });
 };
 
 updateTitle = function(e) {
@@ -41,7 +92,7 @@ updateTitle = function(e) {
   {
     new_text = "New Machine";
   }
-  this.parentNode.parentNode.getElementsByClassName("new-machine-title")[0].innerHTML = new_text + minusButton();
+  this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].getElementsByTagName("a")[0].text = new_text;
 };
 
 function minusButton() {

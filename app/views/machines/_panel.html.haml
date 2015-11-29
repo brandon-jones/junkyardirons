@@ -1,0 +1,28 @@
+.panel.panel-default
+  .panel-heading{:role => "tab"}
+    %h4.panel-title
+      %a.collapsed{"aria-controls" => "#{counter}", "aria-expanded" => "false", "data-parent" => "", "data-toggle" => "collapse", :href => "##{counter}", :role => "button", :class => "new-machine-title"}
+        = machine.title == nil ? 'New Machine' : machine.title
+      %a.css_btn_class.pull-right.machine-remove{:href => "#", data: { id: machine.id }}
+        %span.glyphicon.glyphicon-remove{"aria-hidden" => "true"}
+  .panel-collapse.collapse.in{"aria-labelledby" => "#{counter}", :role => "tabpanel", :id => "#{counter}"}
+    .panel-body
+      .form-group
+        .row
+          .col-md-12
+            = label_tag :title
+            %small required to be saved
+            = text_field_tag "machine_set[machines][#{counter}][title]", machine.title , class: 'form-control machine-title', :placeholder => "Title for machine"
+      .form-group
+        .row
+          .col-md-12
+            = label_tag :description
+            = text_area_tag "machine_set[machines][#{counter}][description]", machine.description, class: 'form-control machine-description', :placeholder => "Description for machine"
+      .form-group
+        .row
+          .col-md-12
+            = label_tag :images
+            = file_field("machine_set[machines][#{counter}]",:images, accept: 'image/png,image/jpeg,image/jpg', class: 'btn machine-images', :multiple => true  )
+      - machine.images.each do |image|
+        .image-row
+          = render partial: "images/form", locals: { image: image }

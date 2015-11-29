@@ -10,7 +10,7 @@ class Machine < ActiveRecord::Base
       new_machine.title = machine['title']
       new_machine.description = machine['description']
       new_machine.machine_set_id = machine['machine_set_id']
-      if new_machine.save
+      if new_machine.title.length > 0 && new_machine.save
 
         machine['images'].each do |image|
           uploaded_file = Cloudinary::Uploader.upload(image.tempfile.path)

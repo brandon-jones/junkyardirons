@@ -1,37 +1,27 @@
-= form_for @image do |f|
-  - if @image.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@image.errors.count, "error")} prohibited this image from being saved:"
-      %ul
-        - @image.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :public_id
-    = f.text_field :public_id
-  .field
-    = f.label :width
-    = f.number_field :width
-  .field
-    = f.label :height
-    = f.number_field :height
-  .field
-    = f.label :format
-    = f.text_field :format
-  .field
-    = f.label :bytes
-    = f.number_field :bytes
-  .field
-    = f.label :url
-    = f.text_field :url
-  .field
-    = f.label :secure_url
-    = f.text_field :secure_url
-  .field
-    = f.label :imageable_id
-    = f.number_field :imageable_id
-  .field
-    = f.label :imageable_type
-    = f.number_field :imageable_type
-  .actions
-    = f.submit 'Save'
+.form-group{ id: "image-id-#{image.id}"}
+  .row.machine-images-row 
+    .col-md-4.machine-images
+      = link_to(image_tag(image.url, class: 'img-responsive', style: "max-height:8em;"), '#', html_options = {"data-target" => "#imageModal", "data-toggle" => "modal", "data-full-resolution-url" => image.url, "data-width" => image.width, "data-height" => image.height, "data-id" => image.id, "class" => "thumbnail machine-image"})
+    .col-md-6
+      - image.attributes.slice("public_id", "width", "height", "format", "bytes", "created_at").each do |key,value|
+        .row
+          .col-md-4.text-right
+            %strong
+              = key
+          .col-md-8
+            - case(key)
+            - when "bytes"
+              = "#{image.bytes.to_i} (#{number_to_human_size(image.bytes.to_i)})"
+            - when "created_at"
+              = local_time_ago(image.created_at)
+            - when "width" 
+              = image.width
+              px
+            - when "height"
+              = image.height
+              px
+            - else
+              = value
+    .col-md-2.machine-images-remove-column
+      %a.css_btn_class.pull-right.machine-images-remove{:href => "#", data: { id: image.id }}
+        %span.glyphicon.glyphicon-remove{"aria-hidden" => "true"}

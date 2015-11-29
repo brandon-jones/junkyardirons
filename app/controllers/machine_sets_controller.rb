@@ -34,6 +34,7 @@ class MachineSetsController < ApplicationController
   def create
     @machine_set = MachineSet.new(machine_set_params)
     respond_to do |format|
+      binding.pry
       if @machine_set.save
         machines = []
         params['machine_set']['machines'].keys.each do |key|

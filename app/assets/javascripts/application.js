@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require ckeditor/init
+//= require local_time
 //= require_tree .
 
 // $(document).ready(function() {

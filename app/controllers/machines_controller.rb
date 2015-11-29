@@ -16,26 +16,27 @@ class MachinesController < ApplicationController
 
   def new_form
     @machine = Machine.new
-    @counter = session[:machine_counter] ? session[:machine_counter] : 0
-    session[:machine_counter] = @counter + 1
+    @counter = (session[:machine_counter] ? session[:machine_counter] = session[:machine_counter] + 1 : session[:machine_counter] = 0)
     respond_to do |format|
-      format.html { render partial: 'form' }
+      format.html { render partial: 'panel', locals: {machine: @machine, counter: @counter} }
     end
   end
 
   # GET /machines/new
   def new
-    session.delete(:machine_counter)
+    @counter = (session[:machine_counter] ? session[:machine_counter] = session[:machine_counter] + 1 : session[:machine_counter] = 0)
     @machine = Machine.new
   end
 
   # GET /machines/1/edit
   def edit
+    @counter = (session[:machine_counter] ? session[:machine_counter] = session[:machine_counter] + 1 : session[:machine_counter] = 0)
   end
 
   # POST /machines
   # POST /machines.json
   def create
+    session.delete(:machine_counter)
     @machine = Machine.new(machine_params)
 
     respond_to do |format|

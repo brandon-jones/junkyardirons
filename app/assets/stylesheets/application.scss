@@ -16,6 +16,33 @@
  @import bootstrap;
  */
  
+.css_btn_class {
+  font-size:16px;
+  font-family:Arial;
+  font-weight:normal;
+  -moz-border-bottom-left-radius:8px;
+  -webkit-border-bottom-left-radius:8px;
+  border-bottom-left-radius:8px;
+  padding:9px 18px;
+  text-decoration:none;
+  background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );
+  background:-ms-linear-gradient( top, #fe1a00 5%, #ce0100 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100');
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #fe1a00), color-stop(100%, #ce0100) );
+  background-color:#fe1a00;
+  color:#ffffff;
+  display:inline-block;
+  text-shadow:1px 1px 0px #b23e35;
+  -webkit-box-shadow:inset 1px 1px 0px 0px #f29c93;
+  -moz-box-shadow:inset 1px 1px 0px 0px #f29c93;
+  box-shadow:inset 1px 1px 0px 0px #f29c93;
+}.css_btn_class:hover {
+  border: 1px solid #000000;
+}.css_btn_class:active {
+  position:relative;
+  top:1px;
+}
+
 body {
   background: image-url("background.png") no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -34,12 +61,42 @@ body {
   border-color: black;
 }
 
+.image-row {
+  margin-right: 1em;
+  margin-left: 1em;
+}
+  
 .machine-images-row {
   border: 1px solid black;
+  box-shadow: 10px 10px 5px #888888;
 }
 
 .machine-images {
-  border: 1px solid black;
+  border-right: 1px solid black;
+  background-color: #ffffff;
+  padding-top: 1em;
+}
+
+.machine-images-remove {
+  color:white !important;
+}
+
+.machine-remove {
+  color:white !important;
+  border-radius: 0;
+  position: relative;
+  top: -.7em;
+  right: -1em;
+  height: 2.45em;
+
+  -moz-border-top-right-radius:4px;
+  -webkit-border-top-right-radius:4px;
+  border-top-right-radius:4px;
+}
+
+.machine-images-remove-column {
+  padding-right: 0 !important;
+
 }
 
 .machine-image {

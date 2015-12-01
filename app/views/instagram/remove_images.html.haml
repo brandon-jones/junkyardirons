@@ -1,0 +1,5 @@
+.row.instagram-remove-images-row
+  - @instagram_images.each do |image|
+    .col-md-4{id: "image-#{image.id}"}
+      = image_tag(image.low_resolution_url, class: "img-responsive main-images")
+      %button.btn.btn-danger.center-block.instagram-remove-image{:type => "button", data: {image_id: "#{image.id}"}} Remove Image

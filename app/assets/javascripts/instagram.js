@@ -4,6 +4,7 @@
 $(document).ready(function() {
   $('.instagram-tags-add').on('click', addTag)
   $('.instagram-tags-minus').on('click', minusTag)
+  $('.instagram-remove-image').on('click', removeInstagramImage)
 });
 
 Array.prototype.clean = function(deleteValue) {
@@ -23,6 +24,31 @@ addTag = function(e) {
   addToTextBox(tagName)
   flipVisibilty($('.'+tagName+'-tag'))
 };
+
+removeInstagramImage = function(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  imageId = this.dataset.imageId;
+  url = "/instagram/" + imageId;
+  imageElement = "image-" + imageId;
+  if (confirm("Are you sure you want to remove this image. The only way to bring it back is to remove and readd Instagram user. THIS CAN NOT BE UNDONE!")) {
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      dataType: "html",
+      data: {
+          image_id: imageId
+      },
+      success: function() {
+          document.getElementById(imageElement).remove();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert('An error occured.. ' + XMLHttpRequest.responseText + '..' + errorThrown);
+      }
+    });
+  }
+};
+
 
 minusTag = function(e) {
   e.stopPropagation();

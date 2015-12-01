@@ -81,7 +81,10 @@ Rails.application.routes.draw do
     get 'edit_tags'
     post 'update_tags'
     get 'images/:user_id', to: '#get_images'
+    get 'remove_images'
   end
+
+  delete 'instagram/:image_id', to: 'instagram#destroy'
   # get 'about_my_machines', to: 'about_my_machines#show'
   # get 'about_my_machines/edit', to: 'about_my_machines#edit'
   # post 'about_my_machines/update', to: 'about_my_machines#update'

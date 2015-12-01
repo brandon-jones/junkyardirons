@@ -19,6 +19,11 @@ class InstagramController < ApplicationController
     end
   end
 
+  def remove_images
+    instagram = Instagram.new
+    @instagram_images = instagram.images
+  end
+
   def update_user
     # instagram = Instagram.new.read_file
     params.slice('user_name', 'user_id').keys.each do |key|
@@ -50,5 +55,20 @@ class InstagramController < ApplicationController
       RedisModel.update_value key, params[key].split(',').collect{ |x| x.strip}.collect(&:downcase).join(',')
     end
     redirect_to admin_path
+  end
+
+  def destroy
+    if params[:image_id]
+      image = Instagram.find_by_id(params[:image_id])
+      respond_to do |format|
+        if image.destroy
+          format.html { head 200, content_type: "text/html" }
+          format.json { head :ok }
+        else
+          format.html { head 404, content_type: "text/html" }
+          format.json { render :json => image.errors, :status => :unprocessable_entity }
+        end
+      end
+    end
   end
 end
